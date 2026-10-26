@@ -563,6 +563,7 @@ Found a bug or have a feature request?
 - 🏷️ **Latest Release**: [https://github.com/chriz-3656/streamflix/releases/tag/v2.3.0](https://github.com/chriz-3656/streamflix/releases/tag/v2.3.0)
 - 🔬 **Test Tool**: [test-channels.html](test-channels.html)
 - 🎬 **Splash Preview**: [splash-preview.html](splash-preview.html)
+- 📱 **Mobile Guide**: [MOBILE_GUIDE.md](MOBILE_GUIDE.md) — controles táctiles, notas por dispositivo, límites conocidos, instalación como PWA y solución de problemas en móvil. Se lee al probar o depurar el reproductor en un teléfono.
 
 ---
 
