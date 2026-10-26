@@ -1,0 +1,57 @@
+# CONTEXT — StreamIPTV
+> Actualizado: 2026-10-26
+
+## Estado
+Demo de un reproductor IPTV web estilo Netflix: JS vanilla + HLS.js + PWA (`sw.js`), relay Express
+(`lib/streamflix-app.js`), app de escritorio Electron (`desktop/`) y una plantilla de relay en
+Cloudflare Worker (`worker/`). Lee las listas públicas `iptv-org.github.io/iptv/countries/in.m3u`
+(India) e `iptv-org.github.io/iptv/index.m3u` (global) desde el navegador (`js/fixed-player.js`).
+- Fork de `chriz-3656/streamflix`: `origin` = `devsart95/streamjr` (público). El original sigue en
+  `fcefdc6` (2026-02-19, último commit del autor), el mismo que este repo tenía antes de su
+  documentación: el fork no está atrasado (`gh api repos/chriz-3656/streamflix/commits/main --jq .sha`).
+- Versión: `package.json` dice 2.3.0; el README presenta la v2.5 (changelog del 2026-02-18) como
+  la actual. No coinciden.
+- Sin tests ni linter.
+
+## Cómo se levanta
+- `npm start` (= `node server.js`): http://localhost:8080, o el puerto de `PORT`. Probado el
+  2026-10-26 con `PORT=18943`: `GET /` → 200 y `GET /api/relay/health` →
+  `{"ok":true,"service":"stream-relay"}`.
+- `npm run desktop`: Electron, con el relay local en `127.0.0.1` y puerto dinámico. Sin verificar:
+  correr `npm run desktop`.
+- `npm run dist`: instaladores con electron-builder (Linux AppImage y deb, Windows NSIS). Sin
+  verificar: correr `npm run dist`.
+- `node_modules` ya está instalado (`package-lock.json` en el repo).
+
+## Deploy
+El README declara dos despliegues y el repo no configura ninguno:
+- **Demo estático** en Cloudflare Pages: `https://streamflix-watch.pages.dev/` (sin build, salida
+  `/`, auto-deploy al pushear a `main`). GET 200 el 2026-10-26, con
+  `<title>StreamFlix - Premium IPTV Experience</title>`. La conexión Pages ↔ GitHub vive en el
+  dashboard de Cloudflare; el repo sólo trae `_routes.json`, sin workflow ni `functions/`.
+- **Relay en Worker** (`worker/`, `cd worker && npx wrangler deploy`): el README cita
+  `https://streamflix-relay.chrizmonsaji.workers.dev` (GET `/health` → 200 el 2026-10-26).
+
+**Sin verificar de quién son.** El subdominio `chrizmonsaji` coincide con el email del autor en
+`package.json`, así que es probable que un push a `devsart95/streamjr` no despliegue nada. Lo
+verifica `npx wrangler pages project list` con la cuenta de Justino: ¿aparece `streamflix-watch`?
+
+## Variables de entorno
+- `PORT` — `server.js`; por defecto 8080.
+- `MAX_TIMEOUT_MS` — `worker/wrangler.toml` (12000); no es secreto.
+- No hay `.env.example` ni credenciales; `.gitignore` ignora `.env`, `*.pem`, `*.key` y `config.json`.
+
+## Pendientes
+- **Filtro de hosts del relay incompleto.** `isBlockedHost` (`lib/streamflix-app.js`) compara
+  prefijos de texto; `isPrivateOrLoopbackHost` (`worker/src/index.js`) tiene el mismo criterio
+  (leído, no probado). Probado el 2026-10-26 contra el relay local con
+  `curl --get --data-urlencode "url=<destino>" http://127.0.0.1:<PORT>/api/relay`: `127.0.0.1` y
+  `10.0.0.1` dan 403; `127.0.0.2`, `[::1]`, `0.0.0.0` y `169.254.169.254` pasan el filtro y el relay
+  intenta conectar. Importa si `npm start` se expone fuera de la máquina (escucha en `*`); en Pages
+  no corre. Se cierra en esas dos funciones, y se verifica repitiendo el `curl`: todos 403.
+- **Definir de quién son el Pages y el Worker del README** (§ Deploy).
+
+## Docs
+- [README.md](README.md) — el del autor: funciones, uso, relay, deploy y changelog; es la doc
+  principal.
+- [MOBILE_GUIDE.md](MOBILE_GUIDE.md) — controles táctiles, límites conocidos y problemas en móvil.

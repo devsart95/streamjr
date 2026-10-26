@@ -1,0 +1,7 @@
+nombre: StreamIPTV
+magnitud: descartable   # decidido por Justino el 2026-10-26 — rules/magnitud.md
+descripcion: Reproductor IPTV web de demo estilo Netflix (listas M3U, HLS.js, relay Express, versión Electron), fork de chriz-3656/streamflix; no es la app Android streamflix aunque su package.json se llame así
+comandos:
+  dev: npm run dev
+  desktop: npm run desktop
+  dist: npm run dist
