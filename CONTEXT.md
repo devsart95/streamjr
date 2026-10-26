@@ -42,13 +42,9 @@ verifica `npx wrangler pages project list` con la cuenta de Justino: ¿aparece `
 - No hay `.env.example` ni credenciales; `.gitignore` ignora `.env`, `*.pem`, `*.key` y `config.json`.
 
 ## Pendientes
-- **Filtro de hosts del relay incompleto.** `isBlockedHost` (`lib/streamflix-app.js`) compara
-  prefijos de texto; `isPrivateOrLoopbackHost` (`worker/src/index.js`) tiene el mismo criterio
-  (leído, no probado). Probado el 2026-10-26 contra el relay local con
-  `curl --get --data-urlencode "url=<destino>" http://127.0.0.1:<PORT>/api/relay`: `127.0.0.1` y
-  `10.0.0.1` dan 403; `127.0.0.2`, `[::1]`, `0.0.0.0` y `169.254.169.254` pasan el filtro y el relay
-  intenta conectar. Importa si `npm start` se expone fuera de la máquina (escucha en `*`); en Pages
-  no corre. Se cierra en esas dos funciones, y se verifica repitiendo el `curl`: todos 403.
+- **Revisar el filtro de destinos del relay antes de exponerlo** (`npm start` escucha en `*`):
+  `isBlockedHost` (`lib/streamflix-app.js`) e `isPrivateOrLoopbackHost` (`worker/src/index.js`)
+  no cubren todas las direcciones privadas. En Pages no corre.
 - **Definir de quién son el Pages y el Worker del README** (§ Deploy).
 
 ## Docs
