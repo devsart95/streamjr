@@ -3,12 +3,12 @@
 Reproductor IPTV web de demo, estilo Netflix: canales de listas M3U con HLS.js, relay Express
 contra CORS y mixed-content, versión de escritorio con Electron y una plantilla de relay en
 Cloudflare Worker. JS vanilla, sin build. Repo `devsart95/streamjr`, público.
-Hereda de `~/.claude/CLAUDE.md` y de `~/ajr/Sarto/CLAUDE.md`; acá sólo lo específico.
+Hereda las reglas generales del autor; acá sólo lo específico.
 
 **Magnitud: `descartable`** (`project.yaml`). Entra completo: que el demo corra y reproduzca un
 canal. Queda como techo: nada — si deja de ser un demo, la banda se revisa antes de tocarlo.
 
-- **No es `streamflix`**, la app Android de `~/ajr/Sarto/streamflix`, aunque su `package.json` se
+- **No es `streamflix`**, la app Android de otro repo, aunque su `package.json` se
   llame `streamflix`: son proyectos distintos.
 - **Es un fork público de `chriz-3656/streamflix` (MIT) y el código es de su autor**: al
   2026-10-26, 57 de 58 commits son de «Chris» o «MISTER CHRIS». No hay remoto `upstream`

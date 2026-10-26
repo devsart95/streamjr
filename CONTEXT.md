@@ -34,7 +34,7 @@ El README declara dos despliegues y el repo no configura ninguno:
 
 **Sin verificar de quién son.** El subdominio `chrizmonsaji` coincide con el email del autor en
 `package.json`, así que es probable que un push a `devsart95/streamjr` no despliegue nada. Lo
-verifica `npx wrangler pages project list` con la cuenta de Justino: ¿aparece `streamflix-watch`?
+verifica `npx wrangler pages project list` con la cuenta del dueño: ¿aparece `streamflix-watch`?
 
 ## Variables de entorno
 - `PORT` — `server.js`; por defecto 8080.
