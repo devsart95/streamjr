@@ -51,3 +51,6 @@ verifica `npx wrangler pages project list` con la cuenta de Justino: ¿aparece `
 - [README.md](README.md) — el del autor: funciones, uso, relay, deploy y changelog; es la doc
   principal.
 - [MOBILE_GUIDE.md](MOBILE_GUIDE.md) — controles táctiles, límites conocidos y problemas en móvil.
+
+## Revisar (auditoría del 2026-10-26)
+- **El demo estático y el relay que el README presenta como vigentes no figuran en la cuenta de Cloudflare del dueño del fork** (medido el 2026-10-26): `npx wrangler pages project list` no trae ese proyecto de Pages, y `npx wrangler deployments list --name <nombre de worker/wrangler.toml>` responde «This Worker does not exist on your account». § Deploy y § Pendientes todavía los dan por «sin verificar»: corregirlos, y decidir si el README del fork deja de ofrecerlos como propios.
